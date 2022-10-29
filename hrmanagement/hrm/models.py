@@ -31,7 +31,7 @@ class AddStudents(models.Model):
     sdegree = models.CharField(max_length=100)
     total_amount = models.IntegerField()
     paid_amount = models.IntegerField()
-    due_amount = models.IntegerField()
+    due_amount = models.FloatField()
     scourse= models.ForeignKey(AddCourses, on_delete=models.CASCADE)
    
     
