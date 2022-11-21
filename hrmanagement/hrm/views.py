@@ -1,7 +1,11 @@
 from django.shortcuts import render, redirect, HttpResponseRedirect
-from hrm.models import AddCourses, AddStudents, User
+from hrm.models import AddCourses, AddStudents, User,AddTeacher,AddHr
 from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
+from django.db.models import Q
+from django.contrib.auth import logout
+
+
 # Create your views here.
 
 def index(request):
@@ -24,6 +28,16 @@ def viewstudents(request):
     addcourses= AddCourses.objects.all()
     redirect("viewstudents")
     return render(request, 'hrm/viewstudents.html', {'stu':stu, 'addcourses':addcourses})
+
+def viewteacher(request):
+    stu=AddTeacher.objects.all()
+    redirect("viewteacher")
+    return render(request, 'hrm/teacher.html', {'stu':stu})
+
+def viewhr(request):
+    stu=AddHr.objects.all()
+    redirect("viewhr")
+    return render(request, 'hrm/hr.html', {'stu':stu})
 
 def notifications(request):
     return render(request, 'hrm/notifications.html')
@@ -78,6 +92,7 @@ def addcourses(request):
         AddCourses.objects.create(course=c_name, fees=c_fees, duration= c_duration, desc=c_desc)
         return render(request, 'hrm/courses.html', {'stu':AddCourses.objects.all()})
 
+
 def addstudent(request):
         if request.method == "POST":
             stu_name= request.POST.get("Name")
@@ -119,7 +134,119 @@ def addstudent(request):
             stu=AddStudents.objects.all()
             addcourses= AddCourses.objects.all()
             return render(request, 'hrm/viewstudents.html', {'stu':stu, 'addcourses':addcourses})
+        
+        
+# Students Search Funcation       
+def index(request):
+    if 'q' in request.GET:
+        q = request.GET['q']
+        multiple_q = Q(Q(sname__icontains=q) | Q(semail__icontains=q))|Q(smobile__icontains=q)
+        stu = AddStudents.objects.filter(multiple_q)
+    else:
+        stu = AddStudents.objects.all()
+    context = {
+        'stu': stu
+    }
+    return render(request, 'hrm/viewstudents.html', context)
 
-def search(request):
-    posts = AddStudents.objects.all()
-    return render(request, 'hrm/viewstudents.html',{'posts':posts,})
+# Add Teachers 
+def addteacher(request):
+        if request.method == "POST":
+            stu_name= request.POST.get("Name")
+            stu_email= request.POST.get("Email")
+            stu_mobile= request.POST.get("Mobile")
+            stu_address= request.POST.get("Address")
+            Alternate_Contact_NO= request.POST.get("qty")
+            Expriance= request.POST.get("cost")
+            Privies_salary= request.POST.get("DueAmount")
+            if AddTeacher.objects.filter(semail=stu_email).exists():
+                messages.error(request, "Email id already exists")
+                return redirect('addteacher')
+        
+            elif AddTeacher.objects.filter(smobile=stu_mobile).exists():
+                messages.error(request, "Mobile Number already exists")
+                return redirect('addteacher')
+            else:
+                AddTeacher.objects.create( sname=stu_name, 
+                                            semail=stu_email, 
+                                            smobile=stu_mobile,
+                                            saddress=stu_address,
+                                            Alternate_Contact_NO=Alternate_Contact_NO,
+                                            Expriance=Expriance,
+                                            Privies_salary=Privies_salary,
+                                            )
+                messages.success(request, "HR Added Successfully!!")
+                stu=AddTeacher.objects.all()
+                return render(request, 'hrm/teacher.html', {'stu':stu,
+                                                                 })
+        else:
+            stu=AddTeacher.objects.all()
+            return render(request, 'hrm/teacher.html', {'stu':stu})
+
+def addhr(request):
+        if request.method == "POST":
+            stu_name= request.POST.get("Name")
+            stu_email= request.POST.get("Email")
+            stu_mobile= request.POST.get("Mobile")
+            stu_address= request.POST.get("Address")
+            Alternate_Contact_NO= request.POST.get("qty")
+            Expriance= request.POST.get("cost")
+            Privies_salary= request.POST.get("DueAmount")
+            if AddHr.objects.filter(semail=stu_email).exists():
+                messages.error(request, "Email id already exists")
+                return redirect('addhr')
+        
+            elif AddHr.objects.filter(smobile=stu_mobile).exists():
+                messages.error(request, "Mobile Number already exists")
+                return redirect('addhr')
+            else:
+                AddHr.objects.create( sname=stu_name, 
+                                            semail=stu_email, 
+                                            smobile=stu_mobile,
+                                            saddress=stu_address,
+                                            Alternate_Contact_NO=Alternate_Contact_NO,
+                                            Expriance=Expriance,
+                                            Privies_salary=Privies_salary,
+                                            )
+                messages.success(request, "HR Added Successfully!!")
+                stu=AddHr.objects.all()
+                return render(request, 'hrm/hr.html', {'stu':stu,
+                                                                 })
+        else:
+            stu=AddHr.objects.all()
+            return render(request, 'hrm/hr.html', {'stu':stu})
+                
+def update_view(request, uid):
+    stu = AddCourses.objects.get(id=uid)
+    print(stu)
+    return render(request, 'hrm/updatecourse.html', context={
+        'stu': stu,
+    })
+    
+def update_course(request):
+    if request.method == 'POST':
+        uid = request.POST['uid']
+        c_name= request.POST['CourseName']
+        c_fees= request.POST['CourseFees']
+        c_duration= request.POST['Duration']
+        c_desc= request.POST['CourseDesc']
+        print("abcde-----------------------------")
+        AddCourses.objects.filter(id=uid).update(course=c_name, fees=c_fees, 
+                                                duration= c_duration,
+                                                desc=c_desc)
+        return redirect('/courses/')                
+    
+    
+def delete_user(request):
+    if request.method == 'POST':
+        data = request.body.decode('utf-8')
+        uid = json.loads(data)
+        if AddCourses.objects.filter(id=uid).exists():
+            AddCourses.objects.filter(id=uid).update(is_active=False)
+            return JsonResponse({"staus": True, "message": "User has been deleted"})
+        else:
+            return JsonResponse({"staus": False, "message": "User not exists."})
+    else:
+        return JsonResponse({"staus": False, "message": "Method not allowed."})
+
+    

@@ -86,9 +86,11 @@
         <span class="nav-link-text ms-1 accordion-body">HR</span>
       </a>
     </li>
+   
+
+  
   </div>
 </div>
-
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
         </li>
@@ -117,9 +119,9 @@
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-dark" href="javascript:;">Dashboard</a></li>
-            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">All Students</li>
+            <li class="breadcrumb-item text-sm text-dark active" aria-current="page">All HR</li>
           </ol>
-          <h6 class="font-weight-bolder mb-0">All Students</h6>
+          <h6 class="font-weight-bolder mb-0">All HR</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -162,7 +164,7 @@
               <div class="text-end pt-1">
               
                 <a class="btn bg-gradient-dark mb-0" style="margin-left:810px;" href="javascript:;" data-bs-toggle="modal"
-                  data-bs-target="#exampleModal"><i class="material-icons text-sm">add</i>Add Students</a>
+                  data-bs-target="#exampleModal"><i class="material-icons text-sm">add</i>Add HR</a>
                   <div class="row">
                     
                   <form class="form-inline my-2 my-lg-0" action="/search/" >
@@ -171,7 +173,7 @@
                   </div>
                   <div class="col-lg-6">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
- </div>                 </form>viewstudents
+ </div>                 </form>
  
                   </div>
               </div>
@@ -186,7 +188,7 @@
             <div class="card-header pb-0">
               <div class="row">
                 <div class="col-lg-6 col-7">
-                  <h6>Total Students</h6>
+                  <h6>Total HR</h6>
                 </div>
               </div>
             </div>
@@ -201,22 +203,13 @@
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Email</th>
                       <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Mobile
                         No.</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        College</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Degree
-                      </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Course
-                      </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Fees
-                      </th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                        Duration</th>
+
                         <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                          Paid amount</th>
+                          Alternate Contact NO.</th>
                           <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                            Total amount</th>
+                            Total Expriance</th>
                             <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                              Due amount</th>    
+                              Privies Salary</th>    
                     </tr>
                   </thead>
                   <tbody>
@@ -226,14 +219,10 @@
                       <td class="align-middle text-sm">{{st.sname}}</td>
                       <td class="align-middle text-sm">{{st.semail}}</td>
                       <td class="align-middle text-center text-sm">{{st.smobile}}</td>
-                      <td class="text-center text-sm">{{st.scollege}}</td>
-                      <td class="text-center text-sm">{{st.sdegree}}</td>
-                      <td class="text-center text-sm">{{st.scourse.course}}</td>
-                      <td class="text-center text-sm">{{st.scourse.duration}}</td>
-                      <td class="text-center text-sm">{{st.scourse.fees}}</td>
-                      <td class="text-center text-sm">{{st.paid_amount}}</td>
-                      <td class="text-center text-sm">{{st.total_amount}}</td>
-                      <td class="text-center text-sm">{{st.due_amount}}</td>
+                      <td class="text-center text-sm">{{st.saddress}}</td>
+                      <td class="text-center text-sm">{{st.Alternate_Contact_NO}}</td>
+                      <td class="text-center text-sm">{{st.Expriance}}</td>
+                      <td class="text-center text-sm">{{st.Privies_salary}}</td>
                     </tr>
                     </tr>
                     {% endfor %}
@@ -263,12 +252,12 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h5 class="modal-title" id="exampleModalLabel">Add Student Details</h5>
+              <h5 class="modal-title" id="exampleModalLabel">Add HR Details</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
               <div class="card-body">
-                <form  name="myform" onkeyup="calculate()" method="post" action="/addstudent/" >
+                <form  name="myform" onkeyup="calculate()" method="post" action="/addhr/" >
                   {% csrf_token %}
                   <div class="row">
                     <div class="col-lg-6 col-md-6">
@@ -289,21 +278,9 @@
                         <input type="email" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="Email">
                       </div>
                     </div>
-                    
 
-                    <div class="col-lg-12 col-md-6">
-                      <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">College</label>
-                        <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="College">
-                      </div>
-                    </div>
-
-                    <div class="col-lg-12 col-md-6">
-                      <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">Degree</label>
-                        <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="Degree">
-                      </div>
-                    </div>
+                 
+                    {% comment %} </div>
                     <div class="col-lg-12 col-md-6">
                       <div class="input-group input-group-outline mb-3">
                         <select class="form-select form-control" placeholder="courses" onfocus="focused(this)"
@@ -315,25 +292,25 @@
                         </select>
                       </div>
                     </div>
-                    </div>
+                    </div> {% endcomment %}
                  
                     <div class="col-lg-6 col-md-6">
                       <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">Total amount</label>
+                        <label class="form-label">Alternate Contact NO</label>
                         <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="qty"/>
                       </div>
                     </div>
                     
                     <div class="col-lg-6 col-md-6">
                       <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">Paid amount</label>
+                        <label class="form-label">Total Expriance</label>
                         <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="cost" />
                       </div>
                     </div>
                     
                     <div class="col-lg-6 col-md-6">
                       <div class="input-group input-group-outline mb-3">
-                        <label class="form-label">Due amount</label>
+                        <label class="form-label">Privies Salary</label>
                         <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="DueAmount" />
                       </div>
                     </div>
@@ -704,7 +681,7 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
+{% comment %} <script>
     var form = document.forms.myform,
     qty = form.qty,
     cost = form.cost,
@@ -716,7 +693,7 @@ window.calculate = function () {
     output.value = (q - c).toFixed(2);
 };
 
-  </script>
+  </script> {% endcomment %}
   <script>
   function allLetter(inputtxt)
       { 

@@ -44,15 +44,93 @@
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
         </li>
+<!--     Fonts and icons  
+-->
 
-        <li class="nav-item">
-          <a class="nav-link text-white " href="/viewstudents/">
+
+<div class="accordion accordion-flush" id="accordionFlushExamples">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="flush-headingOnes">
+
+      <li class=" nav-item accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOnes" aria-expanded="false" aria-controls="flush-collapseOne">
+          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="material-icons opacity-10">receipt_long</i>
+          </div>
+          <span class="nav-link-text ms-1">Add Profile</span>
+        </a>
+      </li>
+    </h2>
+    <li class="nav-item accordion-collapse collapse" id="flush-collapseOnes" aria-labelledby="flush-headingOnes" data-bs-parent="#accordionFlushExamples">
+      <a class="nav-link text-white " href="/viewstudents/">
+        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="material-icons opacity-10">receipt_long</i>
+        </div>
+        <span class="nav-link-text ms-1 accordion-body">Students</span>
+      </a>
+    </li>
+    <li class="nav-item accordion-collapse collapse" id="flush-collapseOnes" aria-labelledby="flush-headingOnes" data-bs-parent="#accordionFlushExamples">
+      <a class="nav-link text-white " href="/viewteacher/">
+        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="material-icons opacity-10">receipt_long</i>
+        </div>
+        <span class="nav-link-text ms-1 accordion-body">Teachers</span>
+      </a>
+    </li>
+    <li class="nav-item accordion-collapse collapse" id="flush-collapseOnes" aria-labelledby="flush-headingOnes" data-bs-parent="#accordionFlushExamples">
+      <a class="nav-link text-white " href="/viewhr/">
+        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="material-icons opacity-10">receipt_long</i>
+        </div>
+        <span class="nav-link-text ms-1 accordion-body">HR</span>
+      </a>
+    </li>
+  </div>
+</div>
+<!-- Courses  -->
+ <div class="accordion accordion-flush" id="accordionFlushExampleTwo">
+  <div class="accordion-item">
+    <h2 class="accordion-header" id="headingTwo">
+
+      <li class=" nav-item accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+          <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+            <i class="material-icons opacity-10">receipt_long</i>
+          </div>
+          <span class="nav-link-text ms-1">Courses</span>
+        </a>
+      </li>
+    </h2>
+    <li class="nav-item accordion-collapse collapse" id="flush-collapseOne" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExampleTwo">
+      <a class="nav-link text-white " href="/courses/">
+        <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+          <i class="material-icons opacity-10">receipt_long</i>
+        </div>
+        <span class="nav-link-text ms-1 accordion-body">Courses</span>
+      </a>
+    </li>
+    </div>
+    </div>
+
+<!--     Fonts and icons  
+-->
+
+        {% comment %} <li class="nav-item">
+          <a class="nav-link text-white " href="/viewteacher/">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
               <i class="material-icons opacity-10">receipt_long</i>
             </div>
-            <span class="nav-link-text ms-1">All Students</span>
+            <span class="nav-link-text ms-1">All Teachers</span>
           </a>
         </li>
+
+        <li class="nav-item">
+          <a class="nav-link text-white " href="/viewhr/">
+            <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="material-icons opacity-10">receipt_long</i>
+            </div>
+            <span class="nav-link-text ms-1">All HR</span>
+          </a>
+        </li>
+
         <li class="nav-item">
           <a class="nav-link text-white " href="/courses/">
             <div class="text-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -61,7 +139,7 @@
             <span class="nav-link-text ms-1">Courses</span>
           </a>
         </li>
-
+ {% endcomment %}
 
         <li class="nav-item mt-3">
           <h6 class="ps-4 ms-2 text-uppercase text-xs text-white font-weight-bolder opacity-8">Account pages</h6>
@@ -356,7 +434,7 @@
             </div>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
+        {% comment %} <div class="col-lg-4 col-md-6">
           <div class="card h-100">
             <div class="card-header pb-0">
               <h6>Courses overview</h6>
@@ -425,7 +503,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> {% endcomment %}
 
       <div class="row mt-4">
         <div class="col-lg-4 col-md-6 mt-4 mb-4">
