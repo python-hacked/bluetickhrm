@@ -4,6 +4,9 @@ from django.contrib import messages
 from django.contrib.auth.hashers import check_password, make_password
 from django.db.models import Q
 from django.contrib.auth import logout
+from django.http import HttpResponse,JsonResponse
+import json
+
 
 
 # Create your views here.
@@ -21,7 +24,14 @@ def dashboard(request):
     return render(request, 'hrm/dashboard.html',{'addcourses':addcourses, 'totalcourse':totalcourse, 'totalstudent':totalstudent})
 
 def courses(request):
-    return render(request, 'hrm/courses.html', {'stu':AddCourses.objects.all()})
+    stu = AddCourses.objects.filter(is_active=True).order_by('id')
+    return render(request, 'hrm/courses.html', 
+                  { 'request':request,
+                      'stu':stu,
+                   
+                    #   'stu':AddCourses.objects.all()
+                   }
+                  )
 
 def viewstudents(request):
     stu=AddStudents.objects.all()
@@ -89,8 +99,15 @@ def addcourses(request):
         c_duration= request.POST['Duration']
         c_desc= request.POST['CourseDesc']
         messages.success(request, "Course Added Successfully!!")
-        AddCourses.objects.create(course=c_name, fees=c_fees, duration= c_duration, desc=c_desc)
-        return render(request, 'hrm/courses.html', {'stu':AddCourses.objects.all()})
+        if AddCourses.objects.all():
+            messages.error(request,"Please Remove")
+        else:
+            AddCourses.objects.create(course=c_name, fees=c_fees, duration= c_duration, desc=c_desc)
+        return render(request, 'hrm/courses.html', 
+                    #   {'stu':stu
+                                                        # AddCourses.objects.all
+                                                    # ()}
+                      )
 
 
 def addstudent(request):
@@ -216,13 +233,14 @@ def addhr(request):
             stu=AddHr.objects.all()
             return render(request, 'hrm/hr.html', {'stu':stu})
                 
+                       
 def update_view(request, uid):
-    stu = AddCourses.objects.get(id=uid)
-    print(stu)
+    res = AddCourses.objects.get(id=uid)
     return render(request, 'hrm/updatecourse.html', context={
-        'stu': stu,
+        'stu': res,
     })
-    
+
+
 def update_course(request):
     if request.method == 'POST':
         uid = request.POST['uid']
@@ -237,16 +255,19 @@ def update_course(request):
         return redirect('/courses/')                
     
     
-def delete_user(request):
-    if request.method == 'POST':
-        data = request.body.decode('utf-8')
-        uid = json.loads(data)
-        if AddCourses.objects.filter(id=uid).exists():
-            AddCourses.objects.filter(id=uid).update(is_active=False)
-            return JsonResponse({"staus": True, "message": "User has been deleted"})
-        else:
-            return JsonResponse({"staus": False, "message": "User not exists."})
-    else:
-        return JsonResponse({"staus": False, "message": "Method not allowed."})
+# def delete_user(request):
+#     if request.method == 'POST':
+#         data = request.body.decode('utf-8')
+#         uid = json.loads(data)
+#         if AddCourses.objects.filter(id=uid).exists():
+#             AddCourses.objects.filter(id=uid).update(is_active=False)
+#             return JsonResponse({"staus": True, "message": "User has been deleted"})
+#         else:
+#             return JsonResponse({"staus": False, "message": "User not exists."})
+#     else:
+#         return JsonResponse({"staus": False, "message": "Method not allowed."})
 
     
+def delete(request,pk):   
+        AddCourses.objects.filter(id=pk).delete()
+        return redirect('courses')    

@@ -4,6 +4,9 @@ from hrm import views
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
+from django.conf.urls import url
+
+
 
 urlpatterns = [
     path('', views.index, name='login'),
@@ -16,7 +19,8 @@ urlpatterns = [
     path('update_view/<int:uid>/',views.update_view, name='Updatecourse'),
     path('update_course/', views.update_course, name='update_courses'),
     path('addstudent/', views.addstudent, name='addstudent'),
-    path('delete_user/', views.delete_user),
+    # path('delete_user/', views.delete_user),
+    url(r'^delete_product/(?P<pk>[0-9]+)/$', views.delete,name="delete"),  
     path('addteachers/', views.addteacher, name='addteacher'),
     path('addhr/', views.addhr, name='addhr'),
     path('notifications/', views.notifications, name='notifications'),

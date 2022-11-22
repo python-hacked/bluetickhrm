@@ -159,7 +159,7 @@
             </li>
           </div>
         </div>
-        
+
         <div class="accordion accordion-flush" id="accordionFlushExampleTwo">
           <div class="accordion-item">
             <h2 class="accordion-header" id="headingTwo">
@@ -339,8 +339,10 @@
                         <span class="text-xs font-weight-bold">{{st.desc}}</span>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <button onclick="document.getElementById('id01').style.display='block';document.getElementById('del_id').value='{{st.id}}'">Delete</button>
-                         <a href="/update_view/{{st.id}}/" class="btn btn-primary" >Update</a> 
+                        <td style="padding:10px;"><a href="{% url 'delete' st.pk %}" class="btn btn-primary" >Delete</a></td>
+
+                        {% comment %} <button onclick="document.getElementById('id01').style.display='block';document.getElementById('del_id').value='{{st.id}}'">Delete</button> {% endcomment %}
+                         <a href="/update_view/{{st.id}}" class="btn btn-primary" >Update</a> 
                       </td>
                     </tr>
                     {% endfor %}
@@ -356,7 +358,31 @@
           </div>
         </div>
       </div>
-
+      <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none';" class="close" title="Close Modal">×</span>
+        <form class="modal-content" action="/action_page.php">
+          <div class="container">
+            <h1>Delete Account</h1>
+            <p>Are you sure you want to delete account?</p>
+          
+            <div class="clearfix">
+            <input type="hidden" id="del_id">
+      
+         {% comment %} <div id="id01" class="modal">
+        <span onclick="document.getElementById('id01').style.display='none';" class="close" title="Close Modal">×</span>
+        <form class="modal-content" action="/action_page.php">
+          <div class="container">
+            <h1>Update Account</h1> {% endcomment %}
+            {% comment %} <p>Are you sure you want to delete account?</p> {% endcomment %}
+            {% csrf_token %}
+              <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">NO</button>
+              <button type="button"  onclick="deleteUser();document.getElementById('id01').style.display='none'" class="deletebtn">YES</button>
+            </div>
+           </div>
+         </form>
+      </div>
+      
+      
 
 
 
@@ -430,7 +456,7 @@
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">
               <div class="copyright text-center text-sm text-muted text-lg-start">
-                ©
+                
                 <script>
                   document.write(new Date().getFullYear())
                 </script>,
@@ -773,6 +799,85 @@
       }
       Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
     }
+  </script>
+
+
+  <!-- delete and update course using AJex buttons -->
+
+<script>
+
+  function deleteUser(){
+  
+    let uid = document.getElementById('del_id').value
+     let  token = document.getElementsByName('csrfmiddlewaretoken')[0].value
+     let cookie = document.cookie
+     let csrfToken = cookie.substring(cookie.indexOf('=') + 1)
+  
+     // token = $('input[name=csrfmiddlewaretoken]').val()
+   user = { 
+              "uid":uid,
+              }
+  
+  
+          // Options to be given as parameter 
+          // in fetch for making requests
+          // other then GET
+          let options = {
+              method: 'POST',
+               headers: {
+                  'Content-Type': 
+                      'application/json;charset=utf-8',
+                       'X-CSRFToken': csrfToken
+              }, 
+              body: JSON.stringify(parseInt(uid))
+          }
+    
+          // Fake api for making post requests
+          let fetchRes = fetch(
+                  "/delete_user/", options);
+          fetchRes.then(res =>
+              res.json()).then(d => {
+                  console.log(d)
+                  document.location.reload()
+              })
+  }
+  
+  
+  function UpdateUser(){
+  
+    let uid = document.getElementById('edi_id').value
+     let  token = document.getElementsByName('csrfmiddlewaretoken')[0].value
+     let cookie = document.cookie
+  let csrfToken = cookie.substring(cookie.indexOf('=') + 1)
+  
+     // token = $('input[name=csrfmiddlewaretoken]').val()
+   user = { 
+              "uid":uid,            
+             
+              
+          }
+           let options = {
+              method: 'POST',
+               headers: {
+                  'Content-Type': 
+                      'application/json;charset=utf-8',
+                       'X-CSRFToken': csrfToken
+              }, 
+              body: JSON.stringify(parseInt(uid))
+          }
+    
+          // Fake api for making post requests
+          let fetchRes = fetch(
+                  "/update_user/", options);
+          fetchRes.then(res =>
+              res.json()).then(d => {
+                  console.log(d)
+                  document.location.reload()
+              })
+  
+  
+  
+  }         
   </script>
   <!-- Github buttons -->
   <script async defer src="https://buttons.github.io/buttons.js"></script>

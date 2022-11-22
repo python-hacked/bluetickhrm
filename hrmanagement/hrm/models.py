@@ -20,8 +20,8 @@ class AddCourses(models.Model):
     fees = models.IntegerField()
     duration = models.CharField(max_length=100)
     desc = models.CharField(max_length=255)
+    is_active=models.BooleanField(default=True)
     
-
     def __str__(self):
         return self.course
 
@@ -37,7 +37,6 @@ class AddStudents(models.Model):
     due_amount = models.FloatField()
     scourse= models.ForeignKey(AddCourses, on_delete=models.CASCADE)
    
-    
     def __str__(self):
         return self.sname
 
