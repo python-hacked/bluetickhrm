@@ -99,14 +99,8 @@ def addcourses(request):
         c_duration= request.POST['Duration']
         c_desc= request.POST['CourseDesc']
         messages.success(request, "Course Added Successfully!!")
-        if AddCourses.objects.all():
-            messages.error(request,"Please Remove")
-        else:
-            AddCourses.objects.create(course=c_name, fees=c_fees, duration= c_duration, desc=c_desc)
-        return render(request, 'hrm/courses.html', 
-                    #   {'stu':stu
-                                                        # AddCourses.objects.all
-                                                    # ()}
+        AddCourses.objects.create(course=c_name, fees=c_fees, duration= c_duration, desc=c_desc)
+        return redirect('courses'
                       )
 
 
@@ -152,7 +146,7 @@ def addstudent(request):
             addcourses= AddCourses.objects.all()
             return render(request, 'hrm/viewstudents.html', {'stu':stu, 'addcourses':addcourses})
         
-        
+          
 # Students Search Funcation       
 def index(request):
     if 'q' in request.GET:
@@ -232,8 +226,8 @@ def addhr(request):
         else:
             stu=AddHr.objects.all()
             return render(request, 'hrm/hr.html', {'stu':stu})
-                
-                       
+               
+
 def update_view(request, uid):
     res = AddCourses.objects.get(id=uid)
     return render(request, 'hrm/updatecourse.html', context={
@@ -248,26 +242,12 @@ def update_course(request):
         c_fees= request.POST['CourseFees']
         c_duration= request.POST['Duration']
         c_desc= request.POST['CourseDesc']
-        print("abcde-----------------------------")
         AddCourses.objects.filter(id=uid).update(course=c_name, fees=c_fees, 
                                                 duration= c_duration,
                                                 desc=c_desc)
         return redirect('/courses/')                
     
-    
-# def delete_user(request):
-#     if request.method == 'POST':
-#         data = request.body.decode('utf-8')
-#         uid = json.loads(data)
-#         if AddCourses.objects.filter(id=uid).exists():
-#             AddCourses.objects.filter(id=uid).update(is_active=False)
-#             return JsonResponse({"staus": True, "message": "User has been deleted"})
-#         else:
-#             return JsonResponse({"staus": False, "message": "User not exists."})
-#     else:
-#         return JsonResponse({"staus": False, "message": "Method not allowed."})
-
-    
 def delete(request,pk):   
         AddCourses.objects.filter(id=pk).delete()
         return redirect('courses')    
+    

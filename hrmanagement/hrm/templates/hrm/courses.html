@@ -269,7 +269,6 @@
                     class="material-icons text-sm">add</i>&nbsp;&nbsp;Add New Courses</a>
               </div>
             </div>
-
           </div>
         </div>
 
@@ -338,11 +337,9 @@
                       <td class="align-middle text-center text-sm">
                         <span class="text-xs font-weight-bold">{{st.desc}}</span>
                       </td>
-                      <td class="align-middle text-center text-sm">
                         <td style="padding:10px;"><a href="{% url 'delete' st.pk %}" class="btn btn-primary" >Delete</a></td>
-
-                        {% comment %} <button onclick="document.getElementById('id01').style.display='block';document.getElementById('del_id').value='{{st.id}}'">Delete</button> {% endcomment %}
-                         <a href="/update_view/{{st.id}}" class="btn btn-primary" >Update</a> 
+                      <td class="align-middle text-center text-sm">
+                        <a href="/update_view/{{st.id}}/" class="btn btn-primary" >Update</a> 
                       </td>
                     </tr>
                     {% endfor %}
@@ -534,7 +531,6 @@
           </div>
         </div>
         <hr class="horizontal dark my-sm-4">
-
       </div>
     </div>
   </div>

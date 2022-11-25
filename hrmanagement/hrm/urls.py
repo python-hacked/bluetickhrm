@@ -7,7 +7,6 @@ from django.contrib.auth import views as auth_views
 from django.conf.urls import url
 
 
-
 urlpatterns = [
     path('', views.index, name='login'),
     path('signup/', views.signup, name='signup'),
@@ -19,7 +18,6 @@ urlpatterns = [
     path('update_view/<int:uid>/',views.update_view, name='Updatecourse'),
     path('update_course/', views.update_course, name='update_courses'),
     path('addstudent/', views.addstudent, name='addstudent'),
-    # path('delete_user/', views.delete_user),
     url(r'^delete_product/(?P<pk>[0-9]+)/$', views.delete,name="delete"),  
     path('addteachers/', views.addteacher, name='addteacher'),
     path('addhr/', views.addhr, name='addhr'),
@@ -32,3 +30,4 @@ urlpatterns = [
     path('viewhr/', views.viewhr, name='viewhr'),
     path('search/', views.index, name='index'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

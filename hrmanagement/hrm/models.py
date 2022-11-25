@@ -25,6 +25,7 @@ class AddCourses(models.Model):
     def __str__(self):
         return self.course
 
+
 class AddStudents(models.Model):
     sname = models.CharField(max_length=100,blank=True, null=True, validators=[alphanumeric])
     semail = models.EmailField(max_length=100)
@@ -39,6 +40,7 @@ class AddStudents(models.Model):
    
     def __str__(self):
         return self.sname
+
 
 class Notifications(models.Model):
     course = models.ForeignKey(AddCourses,on_delete=models.CASCADE)
