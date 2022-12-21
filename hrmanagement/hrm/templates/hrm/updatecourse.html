@@ -36,24 +36,24 @@
               {% csrf_token %}
               <div class="row">
                 <div class="col-lg-12 col-md-6">
-                <input type="hidden" name="uid" value="{{st.id}}">
+                <input type="hidden" name="uid" value="{{stu.id}}">
                   <div class="input-group input-group-outline mb-3">
                     <label class="form-label">Course</label>
-                    <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="CourseName" required  value="{{st.course}}" >
+                    <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="CourseName" required  value="{{stu.course}}" >
                   </div>
                 </div>
-                
+
                   <div class="col-lg-12 col-md-6">
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Fees</label>
-                      <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="CourseFees" required value="{{st.fees}}">
+                      <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="CourseFees" required value="{{stu.fees}}">
                     </div>
                   </div>
 
                   <div class="col-lg-12 col-md-6">
                     <div class="input-group input-group-outline mb-3">
                       <label class="form-label">Duration:</label>
-                      <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="Duration" required  value="{{st.duration}}">
+                      <input type="text" class="form-control" onfocus="focused(this)" onfocusout="defocused(this)" name="Duration" required  value="{{stu.duration}}">
                   </div>
               
                 <div class="input-group input-group-outline mb-3">

@@ -8,7 +8,6 @@ from django.http import HttpResponse,JsonResponse
 import json
 
 
-
 # Create your views here.
 
 def index(request):
@@ -116,7 +115,7 @@ def addstudent(request):
             total_amount= request.POST.get("qty")
             paid_amount= request.POST.get("cost")
             due_amount= request.POST.get("DueAmount")
-            stu_course= AddCourses.objects.get(id=stu_addcourse_id)
+            stu_c9ourse= AddCourses.objects.get(id=stu_addcourse_id)
             if AddStudents.objects.filter(semail=stu_email).exists():
                 messages.error(request, "Email id already exists")
                 return redirect('addstudent')
@@ -247,6 +246,7 @@ def update_course(request):
                                                 desc=c_desc)
         return redirect('/courses/')                
     
+
 def delete(request,pk):   
         AddCourses.objects.filter(id=pk).delete()
         return redirect('courses')    
